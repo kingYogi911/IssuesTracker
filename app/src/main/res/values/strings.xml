@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">IssuesTracker</string>
+    <string name="user_avatar">user_avatar</string>
+    <string name="opened_by">opened by </string>
+</resources>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.issuestracker.viewModels.CommentsViewModel" />
+
+        <variable
+            name="mainViewModel"
+            type="com.example.issuestracker.viewModels.MainViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        tools:context=".activities.DetailsActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{mainViewModel.selectedIssue.title}"
+                android:textScaleX="1.5"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                app:cardCornerRadius="@dimen/spacing_medium"
+                app:contentPadding="@dimen/spacing_medium">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:gravity="end|center_vertical"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="@dimen/spacing_medium"
+                                app:cardCornerRadius="50dp"
+                                app:cardElevation="@dimen/spacing_medium">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:clickable="true"
+                                    android:contentDescription="@string/user_avatar"
+                                    android:focusable="true"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/progress_drawable"
+                                    app:url="@{mainViewModel.selectedIssue.user.avatar_url}" />
+                            </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/spacing_medium"
+                                android:gravity="end"
+                                android:text='@{mainViewModel.selectedIssue.user.nameSpanned}' />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:text='@{ " updated the issue at "+mainViewModel.selectedIssue.updated_at}' />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:text="@{mainViewModel.selectedIssue.body}" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_issues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:adapter="@{viewModel._adapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
+                tools:listitem="@layout/rv_comment_item_layout" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
